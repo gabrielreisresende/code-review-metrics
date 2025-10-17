@@ -96,6 +96,43 @@ Este trabalho busca responder às seguintes questões:
 
 ### 3.2 Análise das Questões de Pesquisa
 
+🔹 RQ01: Relação entre tamanho dos PRs e feedback final
+
+Hipótese (H1): PRs menores têm maior probabilidade de serem aceitos.
+
+Resultado: HIPÓTESE CONFIRMADA
+
+Teste de Correlação de Spearman:
+
+ρ = -0,2123 (correlação fraca negativa)
+
+p < 0,001 (altamente significativo)
+
+Interpretação: PRs com mais linhas e arquivos modificados têm menor chance de merge.
+
+Teste de Mann-Whitney U:
+
+Métrica	Mediana Merged	Mediana Closed	Diferença
+Additions (linhas adicionadas)	138	297	+115%
+Changed Files (arquivos alterados)	7	13	+86%
+
+p < 0,001 para ambas as métricas (diferenças estatisticamente significativas).
+
+Discussão:
+
+Os resultados indicam que PRs maiores, com mais linhas adicionadas e arquivos modificados, têm menor probabilidade de serem aceitos. Essa relação negativa, embora fraca, é consistente com a literatura sobre code review.
+
+Possíveis explicações:
+
+Complexidade: PRs grandes são mais difíceis de revisar e testar.
+
+Risco: Revisores tendem a rejeitar mudanças extensas por medo de introduzir regressões.
+
+Preferência por granularidade: Projetos maduros valorizam PRs pequenos e incrementais.
+
+Implicação prática:
+Contribuidores devem dividir mudanças grandes em PRs menores, facilitando revisão e aumentando chances de merge.
+
 #### **RQ02: Relação entre tempo de análise e feedback final**
 
 ![Comparação merged vs closed](fig2_comparacao_medianas.png)
