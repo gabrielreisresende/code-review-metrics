@@ -1,4 +1,3 @@
-
 ## Relatório Final
 
 **Disciplina:** Laboratório de Experimentação de Software  
@@ -88,7 +87,55 @@ Este trabalho busca responder às seguintes questões:
 
 ## 3. Resultados
 
-### 3.1 Estatísticas Descritivas
+### 3.1 Visão Geral do Dataset
+
+![Visão geral do dataset](fig1_analise_exploratoria.png)
+*Figura 1: Estatísticas descritivas e distribuição dos PRs.*
+
+---
+
+### 3.2 Análise das Questões de Pesquisa
+
+#### **RQ02: Relação entre tempo de análise e feedback final**
+
+![Comparação merged vs closed](fig2_comparacao_medianas.png)
+*Figura 2: Comparação das medianas entre PRs merged e closed.*
+
+![Correlações de Spearman](fig3_correlacoes_spearman.png)
+*Figura 3: Correlações de Spearman entre tempo de análise e status dos PRs.*
+
+![Heatmap de correlações](fig4_heatmap_correlacoes.png)
+*Figura 4: Matriz de correlação entre métricas coletadas.*
+
+---
+
+#### **RQ03: Relação entre descrição dos PRs e feedback final**
+
+![Correlações de Spearman](fig3_correlacoes_spearman.png)
+*Figura 3: Correlações de Spearman entre tamanho da descrição e status dos PRs.*
+
+![Heatmap de correlações](fig4_heatmap_correlacoes.png)
+*Figura 4: Matriz de correlação entre métricas coletadas.*
+
+---
+
+#### **RQ04: Relação entre interações nos PRs e feedback final**
+
+![Distribuições das métricas](fig5_distribuicoes.png)
+*Figura 5: Distribuições das métricas para PRs merged e closed.*
+
+![Correlações de Spearman](fig3_correlacoes_spearman.png)
+*Figura 3: Correlações de Spearman entre interações e status dos PRs.*
+
+![Heatmap de correlações](fig4_heatmap_correlacoes.png)
+*Figura 4: Matriz de correlação entre métricas coletadas.*
+
+---
+
+### 3.3 Outros Resultados
+
+![Resumo dos testes estatísticos](fig6_resumo_testes.png)
+*Figura 6: Resumo visual dos testes estatísticos aplicados.*
 
 #### 3.1.1 Visão Geral do Dataset
 
@@ -289,74 +336,9 @@ Mais participantes e comentários estão levemente associados a rejeição. Isso
 - **Simplicidade é virtude:** PRs diretos e bem elaborados são aprovados com poucas interações
 - **Problemas técnicos:** Muitos comentários podem indicar defeitos ou incompatibilidades
 
-### 4.3 Limitações do Estudo
-
-1. **Dados de tamanho ausentes:** Impossibilita análise de RQ01 e RQ05
-2. **Dados de revisões ausentes:** Impossibilita análise de RQ05-RQ08
-3. **Correlações fracas:** Exceto tempo, as correlações são muito fracas
-4. **Causalidade:** Correlação não implica causalidade (ex: tempo longo pode ser consequência, não causa, da rejeição)
-5. **Contexto dos repositórios:** Não consideramos diferenças entre tipos de projetos
-
-### 4.4 Ameaças à Validade
-
-#### Validade Interna
-- **Dados faltantes:** Métricas de tamanho não coletadas
-- **Automação:** Filtro de 1 hora pode não eliminar todas as revisões automáticas
-
-#### Validade Externa
-- **Generalização:** Resultados limitados a repositórios populares do GitHub
-- **Período:** Análise de um único período temporal
-
-#### Validade de Construção
-- **Métricas proxy:** Tamanho da descrição pode não refletir qualidade
-- **Interações:** Número de comentários não distingue feedback positivo de negativo
-
 ---
 
-## 5. Recomendações Práticas
-
-### 5.1 Para Desenvolvedores (Contribuidores)
-
-1. **Invista em descrições claras**
-   - Explique o "porquê" da mudança
-   - Descreva a solução técnica
-   - Inclua testes e validações
-
-2. **Seja responsivo**
-   - Responda rapidamente a comentários
-   - Não deixe PRs "esfriarem"
-   - Se houver problemas, comunique-se
-
-3. **Mantenha PRs focados**
-   - Evite mudanças não relacionadas
-   - Divida PRs grandes em menores
-   - Facilite a revisão
-
-4. **Atenção aos sinais de alerta**
-   - PR aberto por muito tempo (>1 semana)
-   - Muitos comentários sem resolução
-   - Múltiplos participantes com opiniões divergentes
-
-### 5.2 Para Revisores (Mantenedores)
-
-1. **Forneça feedback rápido**
-   - Revise PRs em até 48 horas
-   - Comunique expectativas claramente
-   - Evite deixar PRs "pendurados"
-
-2. **Seja claro sobre rejeições**
-   - Explique motivos objetivamente
-   - Sugira melhorias quando possível
-   - Feche PRs inviáveis rapidamente
-
-3. **Valorize boas descrições**
-   - Reconheça contribuidores que documentam bem
-   - Solicite mais informações quando necessário
-   - Estabeleça templates de PR
-
----
-
-## 6. Conclusão
+## 5. Conclusão
 
 Este estudo analisou 3.816 Pull Requests de 168 repositórios populares do GitHub para identificar fatores que influenciam na aceitação ou rejeição de contribuições. Os principais achados foram:
 
@@ -370,16 +352,9 @@ Este estudo analisou 3.816 Pull Requests de 168 repositórios populares do GitHu
 
 **Contribuição principal:** Este estudo fornece evidências quantitativas de que tempo de análise, qualidade da descrição e padrões de interação são indicadores significativos do resultado de um PR, embora com efeitos de magnitude variável.
 
-**Trabalhos futuros:**
-- Coletar métricas de tamanho (arquivos, linhas) para análise completa
-- Incluir número de revisões para responder RQ05-RQ08
-- Analisar conteúdo textual dos comentários (análise de sentimento)
-- Comparar diferentes tipos de repositórios (linguagens, domínios)
-- Estudar fatores temporais (dia da semana, hora do dia)
-
 ---
 
-## 7. Referências
+## 6. Referências
 
 1. **Rigby, P. C., & Bird, C. (2013).** Convergent contemporary software peer review practices. *Proceedings of the 2013 9th Joint Meeting on Foundations of Software Engineering*, 202-212.
 
@@ -396,73 +371,3 @@ Este estudo analisou 3.816 Pull Requests de 168 repositórios populares do GitHu
 7. **Spearman, C. (1904).** The proof and measurement of association between two things. *The American Journal of Psychology*, 15(1), 72-101.
 
 8. **Mann, H. B., & Whitney, D. R. (1947).** On a test of whether one of two random variables is stochastically larger than the other. *The Annals of Mathematical Statistics*, 18(1), 50-60.
-
----
-
-## Apêndice A: Estatísticas Detalhadas
-
-### A.1 Distribuição por Status
-
-| Status | Quantidade | Percentual |
-|--------|------------|------------|
-| Merged | 3.182 | 83,4% |
-| Closed | 634 | 16,6% |
-| **Total** | **3.816** | **100%** |
-
-### A.2 Top 10 Repositórios
-
-| Repositório | PRs Analisados |
-|-------------|----------------|
-| apache/dolphinscheduler | 73 |
-| grpc/grpc-java | 70 |
-| apache/skywalking | 69 |
-| jenkinsci/jenkins | 68 |
-| apolloconfig/apollo | 65 |
-| TeamNewPipe/NewPipe | 64 |
-| apache/incubator-seata | 63 |
-| questdb/questdb | 62 |
-| apache/zookeeper | 62 |
-| gyoogle/tech-interview-for-developer | 62 |
-
-### A.3 Estatísticas Descritivas Completas
-
-#### PRs Merged (n=3.182)
-
-| Métrica | Média | Mediana | Desvio Padrão | Min | Max |
-|---------|-------|---------|---------------|-----|-----|
-| Tempo (h) | 280,68 | 33,59 | 1.353,80 | 1,01 | 35.050,35 |
-| Descrição | 1.407,22 | 574,00 | 3.619,88 | 0 | 65.535 |
-| Participantes | 2,37 | 2,00 | 1,31 | 1 | 10 |
-| Comentários | 4,55 | 3,00 | 5,52 | 1 | 92 |
-
-#### PRs Closed (n=634)
-
-| Métrica | Média | Mediana | Desvio Padrão | Min | Max |
-|---------|-------|---------|---------------|-----|-----|
-| Tempo (h) | 2.821,42 | 216,49 | 7.520,73 | 1,01 | 71.300,06 |
-| Descrição | 1.294,10 | 407,50 | 3.088,21 | 0 | 42.391 |
-| Participantes | 2,64 | 2,00 | 1,77 | 0 | 24 |
-| Comentários | 5,42 | 3,00 | 6,00 | 1 | 73 |
-
----
-
-## Apêndice B: Código de Análise
-
-O código completo utilizado para análise estatística e geração de visualizações está disponível no arquivo `analise_completa_lab03s03.py`.
-
-**Principais bibliotecas utilizadas:**
-- `pandas`: Manipulação de dados
-- `numpy`: Operações numéricas
-- `matplotlib`: Visualizações
-- `seaborn`: Visualizações estatísticas
-- `scipy.stats`: Testes estatísticos
-
-**Figuras geradas:**
-1. `fig1_analise_exploratoria.png`: Visão geral do dataset
-2. `fig2_comparacao_medianas.png`: Comparação merged vs closed
-3. `fig3_correlacoes_spearman.png`: Scatter plots com correlações
-4. `fig4_heatmap_correlacoes.png`: Matriz de correlação
-5. `fig5_distribuicoes.png`: Distribuições das métricas
-6. `fig6_resumo_testes.png`: Resumo dos testes estatísticos
-
----
