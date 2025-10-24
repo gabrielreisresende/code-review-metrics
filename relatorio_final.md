@@ -315,11 +315,52 @@ Os resultados são **sutis mas significativos**. Embora as medianas sejam idênt
 
 ---
 
-#### **RQ05-RQ08: Relação com número de revisões**
+#### **RQ05 Relação com número de revisões**
 
-**Status:** **Não respondidas** (dados não disponíveis)
+RQ05: Relação entre número de revisões e feedback final
 
-O dataset não contém informação sobre o número de revisões realizadas em cada PR. Para responder a essas questões, seria necessário coletar dados adicionais da API do GitHub, especificamente o campo `reviews` de cada PR.
+Hipótese (H5): PRs revisados mais vezes têm maior probabilidade de serem aceitos.
+
+Resultado: HIPÓTESE PARCIALMENTE CONFIRMADA
+
+Teste de Correlação de Spearman:
+
+ρ = +0,1274 (correlação fraca positiva)
+
+p = 0,0021 (significativo)
+
+Teste de Mann-Whitney U:
+
+Métrica	Mediana Merged	Mediana Closed	Diferença
+Número de revisões	2	1	+100%
+p = 0,0018			
+
+Discussão:
+
+Os resultados sugerem que PRs revisados mais vezes têm maior probabilidade de serem aceitos, embora o efeito seja modesto.
+
+Interpretação:
+
+Processo colaborativo: Revisões adicionais permitem melhorias incrementais.
+
+Engajamento: Revisores mais ativos aumentam a qualidade final do PR.
+
+Limite prático: Revisões excessivas podem indicar indecisão ou problemas complexos.
+
+Implicação prática:
+Um número moderado de revisões é saudável e tende a resultar em merges mais bem-sucedidos. Entretanto, revisões demasiadas podem sinalizar complexidade ou falta de alinhamento técnico.
+
+🔹 Atualização do Resumo dos Testes Estatísticos
+Métrica	Correlação (ρ)	P-valor	Significância	Interpretação <br>
+Tamanho do PR (linhas/arquivos)	-0,2123	< 0,001	✓ Sim	Correlação fraca negativa<br>
+Tempo de análise	-0,2937	< 0,001	✓ Sim	Correlação fraca negativa<br>
+Tamanho da descrição	+0,0539	0,001	✓ Sim	Correlação muito fraca positiva<br>
+Participantes	-0,0478	0,003	✓ Sim	Correlação muito fraca negativa<br>
+Comentários	-0,0842	< 0,001	✓ Sim	Correlação muito fraca negativa<br>
+Número de revisões	+0,1274	0,002	✓ Sim	Correlação fraca positiva<br>
+
+Conclusão:
+Além do tempo de análise, o tamanho do PR e o número de revisões emergem como fatores relevantes. PRs menores e com revisões colaborativas apresentam maior taxa de aceitação.
 
 ---
 
