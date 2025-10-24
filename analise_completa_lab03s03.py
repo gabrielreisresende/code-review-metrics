@@ -358,6 +358,100 @@ plt.tight_layout()
 plt.savefig('fig6_resumo_testes.png', dpi=300, bbox_inches='tight')
 print("✓ Figura 6 salva: fig6_resumo_testes.png")
 
+if {'additions', 'deletions', 'changed_files'}.issubset(df.columns):
+    total_changes_sum = int(df[['additions', 'deletions', 'changed_files']].sum().sum())
+    if total_changes_sum > 0:
+        df['total_lines_changed'] = df['additions'] + df['deletions']
+        fig_q1, axes_q1 = plt.subplots(1, 2, figsize=(14, 6))
+        fig_q1.suptitle('RQ01: Tamanho do PR vs Status', fontsize=14, fontweight='bold')
+
+        ax_a = axes_q1[0]
+        ax_a.boxplot([merged_df['total_lines_changed'], closed_df['total_lines_changed']], labels=['Merged', 'Closed'], patch_artist=True,
+                     boxprops=dict(facecolor='lightblue', alpha=0.7), medianprops=dict(color='red', linewidth=2))
+        ax_a.set_yscale('log')
+        ax_a.set_title('Distribuição do Total de Linhas Alteradas por Status')
+        ax_a.set_ylabel('Linhas (escala log)')
+
+        ax_b = axes_q1[1]
+        ax_b.hist(merged_df['total_lines_changed'][merged_df['total_lines_changed']>0], bins=50, alpha=0.6, label='Merged', color='#2ecc71', edgecolor='black')
+        ax_b.hist(closed_df['total_lines_changed'][closed_df['total_lines_changed']>0], bins=50, alpha=0.6, label='Closed', color='#e74c3c', edgecolor='black')
+        ax_b.set_xscale('log')
+        ax_b.set_title('Histograma do Total de Linhas Alteradas (exclui zeros)')
+        ax_b.set_xlabel('Linhas alteradas (log)')
+        ax_b.legend()
+
+        plt.tight_layout()
+        plt.savefig('fig_q1_size_vs_status.png', dpi=300, bbox_inches='tight')
+        plt.close(fig_q1)
+        print('✓ Figura Q1 gerada: fig_q1_size_vs_status.png')
+    else:
+        fig_ph = plt.figure(figsize=(8, 3))
+        fig_ph.text(0.5, 0.5, 'Dados de tamanho dos PRs não estão disponíveis (additions/deletions/changed_files são zeros).',
+                    ha='center', va='center', wrap=True, fontsize=12)
+        plt.axis('off')
+        plt.savefig('fig_q1_missing_data.png', dpi=300, bbox_inches='tight')
+        plt.close(fig_ph)
+        print('✗ Q1: dados de tamanho ausentes -> fig_q1_missing_data.png (placeholder)')
+else:
+    fig_ph = plt.figure(figsize=(8, 3))
+    fig_ph.text(0.5, 0.5, 'Colunas de tamanho (additions/deletions/changed_files) não encontradas no dataset.',
+                ha='center', va='center', wrap=True, fontsize=12)
+    plt.axis('off')
+    plt.savefig('fig_q1_missing_columns.png', dpi=300, bbox_inches='tight')
+    plt.close(fig_ph)
+    print('✗ Q1: colunas ausentes -> fig_q1_missing_columns.png')
+
+reviews_col = None
+for candidate in ['reviews_count', 'review_count', 'num_reviews', 'reviews']:
+    if candidate in df.columns:
+        reviews_col = candidate
+        break
+
+if reviews_col:
+    if df[reviews_col].sum() > 0:
+        fig_q5, axq5 = plt.subplots(1, 1, figsize=(8, 6))
+        merged_rev = merged_df[reviews_col]
+        closed_rev = closed_df[reviews_col]
+        axq5.boxplot([merged_rev, closed_rev], labels=['Merged', 'Closed'], patch_artist=True,
+                     boxprops=dict(facecolor='lightgreen', alpha=0.7), medianprops=dict(color='red', linewidth=2))
+        axq5.set_title('RQ05: Número de Revisões por Status')
+        axq5.set_ylabel('Número de Revisões')
+        axq5.grid(True, alpha=0.3)
+        plt.tight_layout()
+        plt.savefig('fig_q5_reviews_vs_status.png', dpi=300, bbox_inches='tight')
+        plt.close(fig_q5)
+        print('✓ Figura Q5 gerada: fig_q5_reviews_vs_status.png')
+    else:
+        fig_ph = plt.figure(figsize=(8, 3))
+        fig_ph.text(0.5, 0.5, f'A coluna "{reviews_col}" existe mas contém zeros ou está vazia.',
+                    ha='center', va='center', wrap=True, fontsize=12)
+        plt.axis('off')
+        plt.savefig('fig_q5_reviews_empty.png', dpi=300, bbox_inches='tight')
+        plt.close(fig_ph)
+        print(f'✗ Q5: coluna {reviews_col} vazia -> fig_q5_reviews_empty.png')
+else:
+    if 'participants_count' in df.columns:
+        fig_q5p, axq5p = plt.subplots(1, 1, figsize=(8, 6))
+        merged_p = merged_df['participants_count']
+        closed_p = closed_df['participants_count']
+        axq5p.boxplot([merged_p, closed_p], labels=['Merged', 'Closed'], patch_artist=True,
+                      boxprops=dict(facecolor='lightyellow', alpha=0.7), medianprops=dict(color='red', linewidth=2))
+        axq5p.set_title('RQ05 (proxy): Participantes por Status (proxy para #revisions)')
+        axq5p.set_ylabel('Participantes (proxy)')
+        axq5p.grid(True, alpha=0.3)
+        plt.tight_layout()
+        plt.savefig('fig_q5_proxy_participants_vs_status.png', dpi=300, bbox_inches='tight')
+        plt.close(fig_q5p)
+        print('⚠️ Q5: coluna de reviews não encontrada — usei `participants_count` como proxy: fig_q5_proxy_participants_vs_status.png')
+    else:
+        fig_ph = plt.figure(figsize=(8, 3))
+        fig_ph.text(0.5, 0.5, 'Não há coluna de reviews nem participants_count no dataset. Impossível gerar Q5.',
+                    ha='center', va='center', wrap=True, fontsize=12)
+        plt.axis('off')
+        plt.savefig('fig_q5_missing.png', dpi=300, bbox_inches='tight')
+        plt.close(fig_ph)
+        print('✗ Q5: dados ausentes -> fig_q5_missing.png')
+
 print("\\n" + "="*80)
 print("ANÁLISE COMPLETA FINALIZADA!")
 print("="*80)
